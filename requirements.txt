@@ -1,9 +1,6 @@
-simplejson
-fvcore
-pytorchvideo
-matplotlib
-tensorboardX
-opencv-python
-pytorch-gradcam
-scikit-learn
-prettytable
+flake8
+isort
+black
+mdformat
+mypy
+pytest
