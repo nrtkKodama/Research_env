@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  ofs_env:
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    build:
+      args:
+        - BASE_IMAGE=nvidia/cuda:11.1.1-devel-ubuntu20.04
+        - PYTHON_VERSION=3.8
+        - UID=${HOST_UID-1000}
+        - GID=${HOST_GID-1000}
+      context: ../../
+      dockerfile: environments/Dockerfile
+    shm_size: '16gb'
+    tty: true
+    volumes:
+        - ../../:/home/kodama/OFS_grade_estimate
+        - /data1/kodama/OFS_grade_estimate/dataset:/home/kodama/OFS_grade_estimate/dataset
+        - /data1/kodama/OFS_grade_estimate/output:/home/kodama/OFS_grade_estimate/src/output
+    ports:
+        - 8002:8002
