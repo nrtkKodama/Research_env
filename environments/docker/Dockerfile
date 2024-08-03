@@ -23,7 +23,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 RUN apt update && apt install --no-install-recommends -y \
     git curl make ssh openssh-client \
-    python${PYTHON_VERSION} python3-pip python-is-python3
+    python${PYTHON_VERSION} python3-pip python-is-python3 python${PYTHON_VERSION}-venv
     
 # Following is needed to swtich default python3 version
 # For detail, please check following link https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
@@ -31,8 +31,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTH
     && update-alternatives --set python3 /usr/bin/python${PYTHON_VERSION} \
     # `requests` needs to be upgraded to avoid RequestsDependencyWarning
     # ref: https://stackoverflow.com/questions/56155627/requestsdependencywarning-urllib3-1-25-2-or-chardet-3-0-4-doesnt-match-a-s
-    && python3 -m pip install --upgrade pip setuptools requests \
-    && python3 -m pip install poetry
+    && python3 -m pip install --upgrade pip setuptools requests 
 
 # Add user. Without this, following process is executed as admin. 
 RUN groupadd -g ${GID} ${GROUP_NAME} \

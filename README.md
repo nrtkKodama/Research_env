@@ -10,6 +10,11 @@ change these variables
 
 ### environments/docker/docker-compose.yaml
 change these variables
+- "SERVICE_NAME" (make sure to use small letter)
+ ```
+ services:
+  SERVICE_NAME:
+ ```
 - volumes
 - BASE_IMAGE
   - check your environment's gpu
@@ -19,13 +24,25 @@ change these variables
   - check optimal cuda version for your gpu ([site](https://en.wikipedia.org/wiki/CUDA#GPUs_supported))
   - search base image ([site](https://hub.docker.com/r/nvidia/cuda/tags))
 
+### environments/docker/Makefile
+- change "SERVICE_NAME"
 ## 2　venv
 ```
 $ python3 -m venv environments/work
 $ source environments/work/bin/activate
 (work)$ pip3 install -r requirements.txt
 ```
-## 3 確認 | cudaと表示されればok
+
+## 3 PyTorch関連のインストール
+- CUDAのバージョンに合ったpytorchをインストールする
+- CUDAのバージョンの確認
+```
+$ nvcc -V
+```
+- pytorchの[サイト](https://pytorch.org/get-started/previous-versions/)からちょうど良いやつを探してpipインストール
+- ### pipでインストールする時には必ずvenv内で！
+
+## 4 確認 | cudaと表示されればok
 ```
 (work)$ python src/startup.py
 cuda
