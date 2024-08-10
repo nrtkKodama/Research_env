@@ -1,0 +1,14 @@
+data/*
+environments/work/*
+datasets/*
+models/*
+outputs/*
+__pycache__
+.coverage
+.mypy_cache
+.pytest_cache
+.venv
+!data/README.md
+!models/README.md
+!outputs/README.md
+.DS_Store

@@ -13,11 +13,9 @@ services:
         - GID=${HOST_GID-1000}
       context: ../../
       dockerfile: environments/docker/Dockerfile
-    shm_size: '16gb'
+    shm_size: '2gb'
     tty: true
     volumes:
-        - ../../:/home/kodama/OFS_grade_estimate
-        - /data1/kodama/OFS_grade_estimate/dataset:/home/kodama/OFS_grade_estimate/dataset
-        - /data1/kodama/OFS_grade_estimate/output:/home/kodama/OFS_grade_estimate/src/output
+        - ../../:/home/${USER_NAME}/${PROJECT_NAME}
     ports:
         - 8002:8002
