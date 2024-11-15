@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=ubuntu:20.04
 FROM ${BASE_IMAGE}
 
-ARG PROJECT_NAME=OFS_grade_estimate
+ARG PROJECT_NAME=Research_env
 ARG USER_NAME=kodama
 ARG GROUP_NAME=kodama
 ARG UID=1000
@@ -22,9 +22,10 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # RUN add-apt-repository ppa:deadsnakes/ppa
 
 RUN apt update && apt install --no-install-recommends -y \
-    git curl make ssh openssh-client \
-    python${PYTHON_VERSION} python3-pip python-is-python3 python${PYTHON_VERSION}-venv
-    
+    git curl make ssh openssh-client libopencv-dev\
+    python${PYTHON_VERSION} python3-pip python-is-python3 python${PYTHON_VERSION}-distutils
+
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION}
 # Following is needed to swtich default python3 version
 # For detail, please check following link https://unix.stackexchange.com/questions/410579/change-the-python3-default-version-in-ubuntu
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 1 \
@@ -39,9 +40,3 @@ RUN groupadd -g ${GID} ${GROUP_NAME} \
 
 USER ${USER_NAME}
 WORKDIR ${APPLICATION_DIRECTORY}
-
-# If ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true", install Python package by Poetry and move .venv under ${HOME}.
-# This process is for CI (GitHub Actions). To prevent overwrite by volume of docker compose, .venv is moved under ${HOME}.
-COPY --chown=${UID}:${GID} pyproject.toml poetry.lock poetry.toml .
-RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && poetry install || echo "skip to run poetry install."
-RUN test ${RUN_POETRY_INSTALL_AT_BUILD_TIME} = "true" && mv ${APPLICATION_DIRECTORY}/.venv ${HOME}/.venv || echo "skip to move .venv."

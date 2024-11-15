@@ -26,10 +26,17 @@ change these variables
 
 ### environments/docker/Makefile
 - change "SERVICE_NAME"
+
+### build and start docker container
+```
+$cd {PROJECT_NAME}/environments/docker
+$make all #build and exec
+```
+
 ## 2　venv
 ```
-$ python3 -m venv environments/work
-$ source environments/work/bin/activate
+$ python3 -m venv environments/{set your own env.(work)}
+$ source environments/{set your own env.(work)}/bin/activate
 (work)$ pip3 install -r requirements.txt
 ```
 

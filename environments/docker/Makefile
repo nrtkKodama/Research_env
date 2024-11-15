@@ -1,4 +1,4 @@
-SERVICE_NAME=ofs_env
+SERVICE_NAME=SERVICE_NAME
 
 .PHONY: build_image
 build_image:
